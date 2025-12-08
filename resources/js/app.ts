@@ -1,3 +1,4 @@
+
 // VENDOR CSS
 import '../css/vendor/animate.min.css';
 import '../css/vendor/bootstrap.min.css';
@@ -8,22 +9,6 @@ import '../css/vendor/owl.carousel.min.css';
 import '../css/vendor/style.css';
 import '../css/vendor/swiper-bundle.min.css';
 
-// VENDOR JS
-import './vendor/bootstrap.min.js';
-// import './vendor/counterup.min.js';
-// import './vendor/customm.js';
-// import './vendor/imagesloaded.pkgd.min.js';
-// import './vendor/isotope.pkgd.min.js';
-// import './vendor/jquery-3.7.1.min.js';
-// import './vendor/magnific-popup.min.js';
-// import './vendor/owl.carousel.min.js';
-// import './vendor/popper.min.js';
-// import './vendor/swiper-bundle.min.js';
-// import './vendor/theia-sticky-sidebar.js';
-// import './vendor/tickerNews.min.js';
-// import './vendor/waypoints-sticky.min.js';
-// import './vendor/waypoints.min.js';
-// import './vendor/wow.min.js';
 
 import { asset } from './lib/utils';
 

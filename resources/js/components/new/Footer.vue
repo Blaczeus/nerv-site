@@ -16,7 +16,10 @@ const year = new Date().getFullYear();
 
             <div class="widget widget_about">
               <div class="logo-footer clearfix">
-                <a href="{{ url('/') }}"><img src="{{ asset('nvrg/images/nervgo.png') }}" alt="Image"></a>
+                <a href="{{ url('/') }}">
+                  <img :src="asset('nervgo.png')" alt="Logo">
+
+                </a>
               </div>
               <div class="f-about-info">
                 Nervego empowers Nigeria's next generation of tech innovators through training, mentorship, and

@@ -39,7 +39,7 @@ import { Link } from '@inertiajs/vue3'
             <div class="logo-header">
               <div class="logo-header-inner logo-header-one">
                 <a href="{{ url('/') }}">
-                  <img src="{{ asset('nvrg/images/nervgo.png') }}" alt="">
+                  <img :src="asset('nervgo.png')" alt="">
                 </a>
               </div>
             </div>
@@ -64,21 +64,30 @@ import { Link } from '@inertiajs/vue3'
                       <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-between">
 
                         <ul class=" nav navbar-nav">
-                          <li><a href="{{ url('/') }}">Home</a></li>
-
-                          <!--<li><a href="#">About</a></li>-->
-
+                          <li>
+                            <Link href="/">Home</Link>
+                          </li>
                           <li class="has-child"><a href="#">Our Company</a>
                             <ul class="sub-menu">
-                              <li><a href="{{ url('/about') }}">About Us</a></li>
-                              <li><a href="{{ url('/careers') }}">Careers</a></li>
+                              <li>
+                                <Link href="/about">About Us</Link>
+                              </li>
+                              <li>
+                                <Link href="/careers">Careers</Link>
+                              </li>
                             </ul>
                           </li>
                           <li class="has-child"><a href="#">Programs</a>
                             <ul class="sub-menu">
-                              <li><a href="{{ url('/programs/mentorship-and-talent') }}">Mentorship & Talent</a></li>
-                              <li><a href="{{ url('/programs/tech-communities') }}">Tech Community</a></li>
-                              <li><a href="{{ url('/programs/funding-and-support') }}">Funding & Support</a></li>
+                              <li>
+                                <Link href="/programs/mentorship-and-talent">Mentorship & Talent</Link>
+                              </li>
+                              <li>
+                                <Link href="/programs/tech-communities">Tech Community</Link>
+                              </li>
+                              <li>
+                                <Link href="/programs/funding-and-support">Funding & Support</Link>
+                              </li>
                             </ul>
                           </li>
                           <!--
@@ -91,8 +100,12 @@ import { Link } from '@inertiajs/vue3'
                                                             </ul>                                
                                                         </li>     
                                                         <li><a href="{{ url('/contact') }}">Community</a></li> -->
-                          <li><a href="{{ url('/events') }}">Events</a></li>
-                          <li><a href="{{ url('/contact') }}">Contact</a></li>
+                          <li>
+                            <Link href="/events">Events</Link>
+                          </li>
+                          <li>
+                            <Link href="/contact">Contact</Link>
+                          </li>
 
                         </ul>
 

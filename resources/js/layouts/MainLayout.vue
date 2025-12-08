@@ -1,6 +1,6 @@
 <template>
   <div class="page-wraper">
-    <!-- <Loader /> -->
+    <Loader />
     <Header />
 
     <main>
