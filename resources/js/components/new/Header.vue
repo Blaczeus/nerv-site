@@ -38,9 +38,9 @@ import { Link } from '@inertiajs/vue3'
           <div class="header-middle main-bar">
             <div class="logo-header">
               <div class="logo-header-inner logo-header-one">
-                <a href="{{ url('/') }}">
-                  <img :src="asset('nervgo.png')" alt="">
-                </a>
+                <Link href="/">
+                <img :src="asset('nervgo.png')" alt="">
+                </Link>
               </div>
             </div>
 
@@ -90,19 +90,21 @@ import { Link } from '@inertiajs/vue3'
                               </li>
                             </ul>
                           </li>
-                          <!--
-                                                        <li class="has-child">
-                                                            <a href="#">Learning & Events</a>
-                                                            <ul class="sub-menu">
-                                                                <li><a href="#">Bootcamps</a></li>
-                                                                <li><a href="#">Workshop</a></li><li><a href="#">Conferences</a></li>
-                                                                <li><a href="#">Events</a></li>                                      
-                                                            </ul>                                
-                                                        </li>     
-                                                        <li><a href="{{ url('/contact') }}">Community</a></li> -->
-                          <li>
-                            <Link href="/events">Events</Link>
+                          <li class="has-child">
+                            <a href="#">Learning & Events</a>
+                            <ul class="sub-menu">
+                              <li>
+                                <Link href="/events">Events</Link>
+                              </li>
+                              <li>
+                                <Link href="/blogs">Blogs</Link>
+                              </li>
+                            </ul>
                           </li>
+                          <!-- <li><a href="{{ url('/contact') }}">Community</a></li> -->
+                          <!-- <li>
+                            <Link href="/events">Events</Link>
+                          </li> -->
                           <li>
                             <Link href="/contact">Contact</Link>
                           </li>

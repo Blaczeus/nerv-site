@@ -3005,8 +3005,8 @@ ol li {
   padding: 0px 20px;
 }
 .header-style-1 .is-fixed .main-bar.color-fill {
-  background-color: #101010;
-  border-radius: 10px;
+  background-color: #101010 !important;
+  border-radius: 10px !important;
 }
 .header-style-1 .is-fixed .header-nav .nav > li {
   margin: 0px;
