@@ -1,5 +1,22 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const btn = document.getElementById('mobile-side-drawer');
+  const header = document.querySelector('.mobile-sider-drawer-menu');
+  const nav = document.querySelector('.header-nav');
+
+  btn.addEventListener('click', () => {
+    nav.classList.toggle('show');
+  });
+
+  if (btn && header) {
+    btn.addEventListener('click', () => {
+      header.classList.toggle('active');
+    });
+  }
+});
 </script>
 
 <template>

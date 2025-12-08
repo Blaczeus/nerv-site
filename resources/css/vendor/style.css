@@ -2931,8 +2931,9 @@ ol li {
   content: "−";
 }
 @media (max-width: 991px) {
-  .header-style-1 .has-child.nav-active > a + .submenu-toogle.fa.fa-angle-right::before {
-    content: "\f107";
+  .header-style-1 .has-child.nav-active > a + .submenu-toogle::before {
+    content: "\f107"; /* FontAwesome down arrow */
+    font-family: "FontAwesome";
   }
 }
 @media (max-width: 991px) {

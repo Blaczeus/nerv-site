@@ -368,29 +368,35 @@ All JavaScript fuctions Start
 
     // > Nav submenu show hide on mobile by = custom.js
     function mobile_nav() {
+        // Remove previously added toggles to avoid duplicates
+        jQuery('.submenu-toogle').remove();
+
         jQuery('.sub-menu, .mega-menu').parent('li').addClass('has-child');
+
         jQuery(
             "<div class='fa fa-angle-right submenu-toogle'></div>",
         ).insertAfter('.has-child > a');
 
-        jQuery('.has-child a+.submenu-toogle').on('click', function (ev) {
-            jQuery(this)
-                .parent()
-                .siblings('.has-child ')
-                .children('.sub-menu, .mega-menu')
-                .slideUp(500, function () {
-                    jQuery(this).parent().removeClass('nav-active');
-                });
+        jQuery('.has-child a + .submenu-toogle')
+            .off('click')
+            .on('click', function (ev) {
+                jQuery(this)
+                    .parent()
+                    .siblings('.has-child ')
+                    .children('.sub-menu, .mega-menu')
+                    .slideUp(500, function () {
+                        jQuery(this).parent().removeClass('nav-active');
+                    });
 
-            jQuery(this)
-                .next(jQuery('.sub-menu, .mega-menu'))
-                .slideToggle(500, function () {
-                    jQuery(this).parent().toggleClass('nav-active');
-                });
+                jQuery(this)
+                    .next(jQuery('.sub-menu, .mega-menu'))
+                    .slideToggle(500, function () {
+                        jQuery(this).parent().toggleClass('nav-active');
+                    });
 
-            ev.stopPropagation();
-        });
-    }
+                ev.stopPropagation();
+            });
+    }    
 
     // Mobile side drawer function by = custom.js
     function mobile_side_drawer() {
