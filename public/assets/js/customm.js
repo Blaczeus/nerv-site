@@ -557,10 +557,10 @@ All JavaScript fuctions Start
         }
     }
 
-    // > page loader function by = custom.js ========================= //
-    function page_loader() {
-        $('.loading-area').fadeOut(1000);
-    }
+    // // > page loader function by = custom.js ========================= //
+    // function page_loader() {
+    //     $('.loading-area').fadeOut(1000);
+    // }
 
     /*--------------------------------------------------------------------------------------------
     Window on scroll ALL FUNCTION START
@@ -613,7 +613,7 @@ All JavaScript fuctions Start
         if (typeof progress_bar_tooltips === 'function')
             progress_bar_tooltips();
         if (typeof progress_bar_width === 'function') progress_bar_width();
-        if (typeof page_loader === 'function') page_loader();
+        // if (typeof page_loader === 'function') page_loader();
     };
 
     // Scroll group

@@ -1,23 +1,24 @@
 export function initPlugins() {
-    if (typeof jQuery === 'undefined') return;
+    return new Promise((resolve) => {
+        if (typeof jQuery === 'undefined') {
+            resolve();
+            return;
+        }
 
-    // Document-ready replacements
-    if (window.runTemplatePlugins) window.runTemplatePlugins();
+        if (window.runTemplatePlugins) window.runTemplatePlugins();
 
-    // Window-load replacements
-    setTimeout(() => {
-        if (window.runTemplateLoadPlugins) window.runTemplateLoadPlugins();
-    }, 300);
+        jQuery(window)
+            .off('scroll.template')
+            .on('scroll.template', () => {
+                window.runTemplateScrollPlugins?.();
+            });
 
-    // Scroll replacement
-    if (window.runTemplateScrollPlugins) window.runTemplateScrollPlugins();
-
-    // Rebind scroll listener for SPA
-    jQuery(window)
-        .off('scroll.template')
-        .on('scroll.template', () => {
-            if (window.runTemplateScrollPlugins) {
-                window.runTemplateScrollPlugins();
-            }
-        });
+        // Window-load replacements: keep same delay as before,
+        // but resolve the promise once done.
+        setTimeout(() => {
+            if (window.runTemplateLoadPlugins) window.runTemplateLoadPlugins();
+            // allow any synchronous plugin init to run first, then finish
+            setTimeout(() => resolve(), 80);
+        }, 300);
+    });
 }
