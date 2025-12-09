@@ -12,8 +12,40 @@
   </div>
 </template>
 
-<script setup>
-import { Head } from '@inertiajs/vue3'
+<!-- <script setup lang="ts">
+import type { NavigateEvent } from '@inertiajs/vue3'
+import { Ref } from 'vue'
+
+interface PageState {
+  pathname: string
+}
+
+const loading: Ref<boolean> = ref(true)
+let previousPage: string | null = null
+
+// Initial page load
+onMounted((): void => {
+  previousPage = window.location.pathname
+  setTimeout((): void => { loading.value = false }, 500)
+})
+
+// Only show loader when navigating to a DIFFERENT page
+router.on('navigate', (event: NavigateEvent): void => {
+  const newPage: string = event.detail.page.url.pathname
+
+  // Only trigger loader if page changed
+  if (newPage !== previousPage) {
+    loading.value = true
+  }
+
+  router.on('finish', (): void => {
+    setTimeout((): void => { loading.value = false }, 300)
+    previousPage = newPage
+  })
+})
+</script> -->
+
+<script setup lang="ts">
 import Header from '@/Components/new/Header.vue'
 import Footer from '@/Components/new/Footer.vue'
 import Loader from '@/Components/new/Loader.vue'
