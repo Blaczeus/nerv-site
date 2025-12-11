@@ -1,3 +1,13 @@
+/* resources/js/app.ts */
+import { createInertiaApp, router } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import type { DefineComponent } from 'vue';
+import { createApp, h } from 'vue';
+
+import { initializeTheme } from './composables/useAppearance';
+import { asset } from './lib/utils';
+import { initPlugins } from './vendor/init-plugins';
+
 // VENDOR CSS
 import '../css/vendor/animate.min.css';
 import '../css/vendor/bootstrap.min.css';
@@ -8,54 +18,61 @@ import '../css/vendor/owl.carousel.min.css';
 import '../css/vendor/style.css';
 import '../css/vendor/swiper-bundle.min.css';
 
-// VENDOR JS
-import './vendor/bootstrap.min.js';
-// import './vendor/counterup.min.js';
-// import './vendor/customm.js';
-// import './vendor/imagesloaded.pkgd.min.js';
-// import './vendor/isotope.pkgd.min.js';
-// import './vendor/jquery-3.7.1.min.js';
-// import './vendor/magnific-popup.min.js';
-// import './vendor/owl.carousel.min.js';
-// import './vendor/popper.min.js';
-// import './vendor/swiper-bundle.min.js';
-// import './vendor/theia-sticky-sidebar.js';
-// import './vendor/tickerNews.min.js';
-// import './vendor/waypoints-sticky.min.js';
-// import './vendor/waypoints.min.js';
-// import './vendor/wow.min.js';
-
-import { asset } from './lib/utils';
-
-import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import type { DefineComponent } from 'vue';
-import { createApp, h } from 'vue';
-import { initializeTheme } from './composables/useAppearance';
-
+/*
+|--------------------------------------------------------------------------
+| INERTIA APP INITIALIZATION
+|--------------------------------------------------------------------------
+*/
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
+
     resolve: (name) =>
         resolvePageComponent(
             `./pages/${name}.vue`,
             import.meta.glob<DefineComponent>('./pages/**/*.vue'),
         ),
+
     setup({ el, App, props, plugin }) {
-        createApp({ render: () => h(App, props) })
+        const vueApp = createApp({ render: () => h(App, props) });
+
+        vueApp
             .use(plugin)
             .mixin({
-                methods: {
-                    asset,
-                },
+                methods: { asset },
             })
             .mount(el);
+
+        /*
+        |--------------------------------------------------------------------------
+        | INITIAL PLUGIN LOAD (first page load)
+        |--------------------------------------------------------------------------
+        */
+        setTimeout(() => {
+            initPlugins();
+        }, 200);
+
+        /*
+        |--------------------------------------------------------------------------
+        | RE-INIT PLUGINS AFTER INERTIA NAVIGATION
+        |--------------------------------------------------------------------------
+        */
+        router.on('finish', () => {
+            setTimeout(() => {
+                initPlugins();
+            }, 200);
+        });
     },
+
     progress: {
         color: '#4B5563',
     },
 });
 
-// Apply theme at startup
+/*
+|--------------------------------------------------------------------------
+| THEME INITIALIZATION
+|--------------------------------------------------------------------------
+*/
 initializeTheme();
