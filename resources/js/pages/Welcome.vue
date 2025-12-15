@@ -8,7 +8,8 @@ import MainLayout from '@/layouts/MainLayout.vue';
 
     <Head>
         <title>Welcome to Nervego Limited</title>
-        <meta name="description" content="We empower the next generation of world-class developers..." />
+        <meta name="description"
+            content="We empower the next generation of world-class developers through cutting-edge technology and transformative solutions. Our company specializes in training visionary developers and crafting innovative software for businesses worldwide." />
     </Head>
 
     <MainLayout>
