@@ -20,7 +20,7 @@ const job = computed<Job | undefined>(() =>
 
   <Head>
     <title>
-      {{ job ? `${job.title} | Careers at Nervego` : 'Careers at Nervego' }}
+      {{ job ? `${job.title} | Careers at Nervego` : 'Role Not Found | Careers at Nervego' }}
     </title>
     <meta name="description" content="Explore career opportunities at Nervego." />
   </Head>
@@ -167,7 +167,7 @@ const job = computed<Job | undefined>(() =>
                         </a>
 
                         <span v-else class="site-button site-button-disabled">
-                          Closed
+                          Applications Closed
                         </span>
                       </div>
 
