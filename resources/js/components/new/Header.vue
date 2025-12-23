@@ -114,7 +114,7 @@ onMounted(() => {
                                 <Link href="/events">Events</Link>
                               </li>
                               <li>
-                                <Link href="/blogs">Blogs</Link>
+                                <Link href="/blog">Blogs</Link>
                               </li>
                             </ul>
                           </li>

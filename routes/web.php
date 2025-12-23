@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\EventRegistrationController;
-use App\Http\Controllers\PagesProgramsController;
+use App\Http\Controllers\ProgramsController;
+use App\Http\Controllers\EventsController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -41,23 +42,30 @@ Route::get('/contact', function () {
     return Inertia::render('Contact');
 })->name('contact');
 
-// Events listing & create
-Route::get('/events', function () {
-    return Inertia::render('Events/Index');
-})->name('events.index');
+// Events pages
+Route::get('/events', [EventsController::class, 'index'])->name('events.index');
+// Route::get('/events/register', [EventsController::class, 'create'])->name('events.create');
+Route::get('/events/{slug}', [EventsController::class, 'show'])->name('events.show');
 
-Route::get('/events/register', function () {
-    return Inertia::render('Events/Create');
-})->name('events.create');
+// Event registration
+// Route::post('/events/register', [EventRegistrationController::class, 'store'])
+//     ->name('events.register.store');
 
-// Event registration routes
-Route::post('/events/registers', [EventRegistrationController::class, 'store'])->name('events.register.store');
-Route::get('/events/nervego-tech-innovators-meetup-2025-gateway-ict-polytechnic-saapade', [EventRegistrationController::class, 'show'])->name('events.special.show');
+// Blog pages
+Route::get('/blog', function () {
+    return Inertia::render('blogs/Index');
+})->name('blog.index');
+
+Route::get('/blog/{slug}', function ($slug) {
+    return Inertia::render('blogs/Show', [
+        'slug' => $slug,
+    ]);
+})->where('slug', '[A-Za-z0-9\-\_]+')->name('blog.show');
 
 // Programs
-Route::get('/programs/mentorship-and-talent', [PagesProgramsController::class, 'mentorship'])->name('programs.mentorship');
-Route::get('/programs/tech-communities', [PagesProgramsController::class, 'community'])->name('programs.community');
-Route::get('/programs/funding-and-support', [PagesProgramsController::class, 'funding'])->name('programs.funding');
+Route::get('/programs/mentorship-and-talent', [ProgramsController::class, 'mentorship'])->name('programs.mentorship');
+Route::get('/programs/tech-communities', [ProgramsController::class, 'community'])->name('programs.community');
+Route::get('/programs/funding-and-support', [ProgramsController::class, 'funding'])->name('programs.funding');
 
 // Dashboard (protected)
 Route::get('/dashboard', function () {

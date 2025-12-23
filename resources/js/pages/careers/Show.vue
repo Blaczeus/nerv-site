@@ -183,16 +183,48 @@ const job = computed<Job | undefined>(() =>
         <!-- CONTENT SECTION END -->
       </template>
       <!-- JOB NOT FOUND -->
+      <!-- JOB NOT FOUND -->
       <template v-else>
-        <div class="section-full p-t150 p-b120 site-bg-black text-center">
-          <div class="container">
-            <h2 class="wt-title">Job not found</h2>
-            <p class="m-t10">The role may have been closed or removed.</p>
+        <div class="page-content">
 
-            <Link href="/careers" class="site-button m-t20">
-              <em>View other openings</em>
-            </Link>
+          <!-- INNER PAGE BANNER -->
+          <div class="wt-bnr-inr site-bg-gray" :style="{ backgroundImage: `url(${asset('banner/banner1.jpg')})` }">
+            <div class="container">
+              <div class="wt-bnr-inr-entry">
+                <div class="banner-title-outer">
+                  <div class="banner-title-name">
+                    <h2 class="wt-title">Role Not Found</h2>
+                  </div>
+                </div>
+
+                <!-- BREADCRUMB -->
+                <ul class="wt-breadcrumb breadcrumb-style-2">
+                  <li>
+                    <Link href="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link href="/careers">Careers</Link>
+                  </li>
+                  <li>Not Found</li>
+                </ul>
+              </div>
+            </div>
           </div>
+          <!-- INNER PAGE BANNER END -->
+
+          <!-- MESSAGE SECTION -->
+          <div class="section-full p-t150 p-b120 site-bg-black text-center">
+            <div class="container">
+              <h3 class="site-text-white m-b20">
+                The job role you’re looking for is no longer available or doesn’t exist.
+              </h3>
+
+              <Link href="/careers" class="site-button site-btn-effect">
+                View Open Positions
+              </Link>
+            </div>
+          </div>
+
         </div>
       </template>
     </div>
