@@ -1,24 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import MainLayout from '@/layouts/MainLayout.vue';
 
 </script>
     
 <template>
+
     <Head>
         <title>Welcome to Nervego Limited</title>
-        <meta name="description" content="We empower the next generation of world-class developers..." />
+        <meta name="description"
+            content="We empower the next generation of world-class developers through cutting-edge technology and transformative solutions. Our company specializes in training visionary developers and crafting innovative software for businesses worldwide." />
     </Head>
 
     <MainLayout>
         <div class="page-content">
-    
+
             <!--SLIDER BANNER START-->
             <div class="kv-bnr-3-wrap-outer home-3-slider">
-    
+
                 <!-- swiper slides -->
                 <div class="swiper-wrapper">
-    
+
                     <div class="kv-bnr-3-wrap swiper-slide"
                         :style="{ backgroundImage: `url(${asset('main-slider/slider3/slide-3.jpg')})` }">
                         <div class="container">
@@ -28,7 +30,8 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                 </h2>
                                 <div class="kv-bnr-3-info s-text-light">
                                     Join Nervego tech revolution and thriving community of developers where mentorship,
-                                    funding, and innovation come together to shape tomorrow’s leaders. Turn your potential
+                                    funding, and innovation come together to shape tomorrow’s leaders. Turn your
+                                    potential
                                     into reality.
                                 </div>
                                 <div class="kv-bnr3-bottom">
@@ -39,17 +42,18 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="kv-bnr-3-media">
                                 <div class="media">
                                     <div class="media-pic">
-                                        <img class="grayscale" :src="asset('main-slider/slider3/ban1.jpg')" alt="Image" />
+                                        <img class="grayscale" :src="asset('main-slider/slider3/ban1.jpg')"
+                                            alt="Image" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-    
+
                     <div class="kv-bnr-3-wrap swiper-slide"
                         :style="{ backgroundImage: `url(${asset('main-slider/slider3/slide-3.jpg')})` }">
                         <div class="container">
@@ -69,35 +73,36 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                             <div class="kv-bnr-3-media">
                                 <div class="media">
                                     <div class="media-pic">
-                                        <img class="grayscale" :src="asset('main-slider/slider3/ban2.webp')" alt="Image" />
+                                        <img class="grayscale" :src="asset('main-slider/slider3/ban2.webp')"
+                                            alt="Image" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
-    
+
                 <div class="swiper-button-wrap">
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
-    
+
             </div>
             <!--SLIDER BANNER END-->
-    
+
             <!-- About Company SECTION START -->
             <div class="section-full p-t150 p-b120 site-bg-black kv-about3-section-wrap wow fadeInDown"
                 data-wow-offset="100" data-wow-delay="0.2">
                 <div class="container">
-    
+
                     <div class="section-content">
                         <div class="row kv-whychoose-section">
-    
+
                             <!-- Left -->
                             <div class="col-xl-6 col-lg-12 col-md-12 m-b30">
                                 <div class="row kv-rev-column-media-wrap">
@@ -112,7 +117,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="col-md-6">
                                         <div class="kv-rev-column-media">
                                             <div class="media">
@@ -126,22 +131,27 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                             <!-- Right -->
                             <div class="col-xl-6 col-lg-12 col-md-12 m-b30">
                                 <div class="kv-about-com-content">
-    
+
                                     <div class="section-head left">
                                         <div class="kv-sm-title left">About Company</div>
                                         <h2 class="kv-large-title site-text-white">
                                             Nervego is Building the Future Through Technology
                                         </h2>
                                         <p class="p-text">
-                                            Nervego is a movement dedicated to raising Nigeria's technology ecosystem to
-                                            global standards...
+                                            Nervego is a movement dedicated to raising Nigeria's technology ecosystem
+                                            to global standards. We empower young innovators through comprehensive
+                                            training, mentorship, and community building. By sponsoring youth-led
+                                            projects, connecting talents with mentors and investors, and developing
+                                            impactful software solutions, we're cultivating a sustainable innovation
+                                            ecosystem. Our mission: transforming Nigeria into a global technology leader
+                                            where homegrown solutions compete worldwide.
                                         </p>
                                     </div>
-    
+
                                     <div class="kv-inline-list5">
                                         <ul>
                                             <li>Training & Mentorship</li>
@@ -150,29 +160,30 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                             <li>Investment in Youth</li>
                                         </ul>
                                     </div>
-    
+
                                     <div class="kv-btn-left">
                                         <Link href="/about" class="site-button">
                                         <em>Read More</em>
                                         </Link>
                                     </div>
-    
+
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
-    
+
                 </div>
             </div>
             <!-- About Company SECTION END -->
-    
+
             <!-- CONTACT SECTION -->
             <div class="section-full p-t150 p-b120 site-bg-dark kv-contact2-section-wrap kv-dark-overlay-wrap wow fadeInDown"
-                data-wow-offset="100" data-wow-delay="0.2" :style="{ backgroundImage: `url(${asset('contactbg-3.jpg')})` }">
-    
+                data-wow-offset="100" data-wow-delay="0.2"
+                :style="{ backgroundImage: `url(${asset('contactbg-3.jpg')})` }">
+
                 <div class="kv-dark-overlay"></div>
-    
+
                 <div class="container">
                     <div class="kv-contact2-section">
                         <h2 class="kv-large-title site-text-white">
@@ -182,7 +193,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
                             Whether you’re a visionary developer or a company seeking transformative solutions,<br>
                             there’s a place for you here.
                         </p>
-    
+
                         <div class="kv-btn-left">
                             <Link href="/contact" class="site-button">
                             <em>Contact Us</em>
@@ -192,21 +203,21 @@ import MainLayout from '@/layouts/MainLayout.vue';
                 </div>
             </div>
             <!-- CONTACT END -->
-    
+
             <!-- PROCESS SECTION -->
-            <div class="section-full p-t150 p-b120 site-bg-black kv-services2--wrap wow fadeInDown" data-wow-offset="100"
-                data-wow-delay="0.2">
-    
+            <div class="section-full p-t150 p-b120 site-bg-black kv-services2--wrap wow fadeInDown"
+                data-wow-offset="100" data-wow-delay="0.2">
+
                 <div class="container">
-    
+
                     <div class="section-head center">
                         <div class="kv-sm-title left">The Process</div>
                         <h2 class="kv-large-title site-text-white">Where We’re Building the Future</h2>
                     </div>
-    
+
                     <div class="section-content">
                         <div class="kv_process_bx-wrap row d-flex justify-content-center">
-    
+
                             <!-- 01 -->
                             <div class="col-lg-4 col-md-6 m-b30">
                                 <div class="kv_process_bx">
@@ -216,11 +227,14 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                             <img :src="asset('service2/1.png')" alt="image">
                                         </div>
                                     </div>
-    
+
                                     <div class="kv-info">
                                         <h3 class="title"><a href="#">Blockchain & FinTech</a></h3>
                                         <p class="info-text">
-                                            We build Africa's financial future with secure blockchain payments...
+                                            We build Africa's financial future with secure blockchain payments, digital
+                                            identity solutions, and smart contracts. Our FinTech tools enable accessible
+                                            banking, cross-border transactions, and inclusive investment platforms for
+                                            underserved markets.
                                         </p>
                                         <div class="kv-btn">
                                             <a href="#" class="site-button"><em>Explore More</em></a>
@@ -228,7 +242,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                             <!-- 02 -->
                             <div class="col-lg-4 col-md-6 m-b30">
                                 <div class="kv_process_bx">
@@ -238,11 +252,13 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                             <img :src="asset('service2/3.png')" alt="image">
                                         </div>
                                     </div>
-    
+
                                     <div class="kv-info">
                                         <h3 class="title"><a href="#">AI & Machine Learning</a></h3>
                                         <p class="info-text">
-                                            We build AI systems specifically for Africa...
+                                            We build AI systems specifically for Africa - from agricultural predictors
+                                            to healthcare diagnostics - that process local languages, interpret visual
+                                            data, and deliver measurable business results across industries.
                                         </p>
                                         <div class="kv-btn">
                                             <a href="#" class="site-button"><em>Explore More</em></a>
@@ -250,7 +266,7 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                             <!-- 03 -->
                             <div class="col-lg-4 col-md-6 m-b30">
                                 <div class="kv_process_bx">
@@ -260,11 +276,14 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                             <img :src="asset('service2/3.png')" alt="image">
                                         </div>
                                     </div>
-    
+
                                     <div class="kv-info">
                                         <h3 class="title"><a href="#">Enterprise-Grade Software</a></h3>
                                         <p class="info-text">
-                                            We develop enterprise-grade digital platforms tailored...
+                                            We develop enterprise-grade digital platforms tailored for African
+                                            businesses—custom ERP/CRM systems with robust cloud infrastructure,
+                                            intelligent automation, and advanced analytics to optimize operations,
+                                            secure data, and drive growth.
                                         </p>
                                         <div class="kv-btn">
                                             <a href="#" class="site-button"><em>Explore More</em></a>
@@ -272,13 +291,152 @@ import MainLayout from '@/layouts/MainLayout.vue';
                                     </div>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
+            <!-- Need a Consultation SECTION START -->
+            <div class="section-full site-bg-black kv-need-consult-section-wrap wow fadeInDown" data-wow-offset="100"
+                data-wow-delay="0.2">
+                <div class="site-bg-primary kv-need-consult-bg">
+                    <div class="container">
+                        <div class="section-content">
+                            <div class="kv-need-consult-section">
+                                <!--Left Section-->
+                                <div class="kv-need-consult-section-left">
+                                    <div class="kv-small-title">We are here to answer your questions 24/7</div>
+                                    <div class="kv-title">Need A Mentor?</div>
+                                </div>
+                                <!--Right Section-->
+                                <div class="kv-need-consult-section-right">
+                                    <div class="kv-outline-text">0706 047 2475</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Need a Consultation SECTION END -->
+
+            <!-- All Services SECTION START -->
+            <div class="section-full p-t150 p-b90 site-bg-black kv-services-all-section-wrap wow fadeInDown"
+                data-wow-offset="100" data-wow-delay="0.2">
+                <div class="container">
+                    <!-- TITLE START-->
+                    <div class="section-head center">
+                        <div class="kv-sm-title left">All Services</div>
+                        <h2 class="kv-large-title site-text-white">Provided A Reliable Services</h2>
+                    </div>
+                    <!-- TITLE END-->
+
+                    <div class="section-content">
+                        <div class="row justify-content-center">
+
+                            <!--One block-->
+                            <div class="col-lg-4 col-md-6 m-b30">
+                                <div class="kv-service-all-section">
+                                    <div class="kv-service-all-bx">
+                                        <div class="media">
+                                            <img class="grayscale" :src="asset('services/pic1.jpg')" alt="Image-01" />
+
+                                            <Link href="/programs/mentorship-and-talent" class="site-button">
+                                            <em><i class="feather feather-chevron-right"></i></em>
+                                            </Link>
+
+                                            <div class="info">
+                                                <h3 class="kv-title">
+                                                    <Link href="/programs/mentorship-and-talent">
+                                                    Mentorship & Talent Development
+                                                    </Link>
+                                                </h3>
+                                                <p>
+                                                    We scout and develop Africa's most promising tech talents,
+                                                    molding them into top-tier developers through immersive hands-on
+                                                    projects, industry expert mentorship, and accelerated career
+                                                    programs.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Two block-->
+                            <div class="col-lg-4 col-md-6 m-b30">
+                                <div class="kv-service-all-section">
+                                    <div class="kv-service-all-bx">
+                                        <div class="media">
+                                            <img class="grayscale" :src="asset('services/pic2.jpg')" alt="Image-02" />
+
+                                            <a href="#" class="site-button">
+                                                <em><i class="feather feather-chevron-right"></i></em>
+                                            </a>
+
+                                            <div class="info">
+                                                <h3 class="kv-title">
+                                                    <a href="#">
+                                                        Advanced Software Solutions
+                                                    </a>
+                                                </h3>
+                                                <p>
+                                                    We build transformative tech that solves pressing problems from
+                                                    smart AI tools to disruptive blockchain applications and powerful
+                                                    business software. Our products empower organizations to work
+                                                    smarter, transact securely, and scale efficiently in the digital
+                                                    age.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Three block-->
+                            <div class="col-lg-4 col-md-6 m-b30">
+                                <div class="kv-service-all-section">
+                                    <div class="kv-service-all-bx">
+                                        <div class="media">
+                                            <img class="grayscale" :src="asset('services/pic3.jpg')" alt="Image-03" />
+
+                                            <Link href="/programs/tech-communities" class="site-button">
+                                            <em><i class="feather feather-chevron-right"></i></em>
+                                            </Link>
+
+                                            <div class="info">
+                                                <h3 class="kv-title">
+                                                    <Link href="/programs/tech-communities">
+                                                    Tech Community & Events
+                                                    </Link>
+                                                </h3>
+                                                <p>
+                                                    We cultivate dynamic tech communities by hosting hackathons,
+                                                    workshops, and networking events that connect developers with
+                                                    industry leaders. Through collaborative spaces and curated
+                                                    experiences, we fuel innovation and accelerate growth across
+                                                    Africa's tech landscape.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="text-center m-t30 m-b30">
+                            <a href="#" class="site-button">
+                                <em>View All</em>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- All Services SECTION END -->
+
         </div>
     </MainLayout>
 </template>
