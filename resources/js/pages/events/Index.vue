@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { Head, Link } from '@inertiajs/vue3'
 import MainLayout from '@/layouts/MainLayout.vue'
 import EventCard from '@/components/events/EventCard.vue'
