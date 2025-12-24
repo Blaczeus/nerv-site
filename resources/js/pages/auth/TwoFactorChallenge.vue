@@ -45,7 +45,7 @@ const toggleMode = (clearErrors: () => void) => {
 
     <AuthLayout>
         <Transition name="auth" mode="out-in">
-            <div key="two-factor" class="page-content">
+            <div v-if="true" key="two-factor" class="page-content">
                 <div class="section-full site-bg-black d-flex align-items-center" style="min-height: 100vh">
                     <div class="container py-5">
                         <div class="section-content">

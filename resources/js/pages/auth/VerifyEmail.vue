@@ -16,7 +16,7 @@ defineProps<{
 
     <AuthLayout>
         <Transition name="auth" mode="out-in">
-            <div key="verify-email" class="page-content">
+            <div v-if="true" key="verify-email" class="page-content">
                 <div class="section-full site-bg-black d-flex align-items-center" style="min-height: 100vh;">
                     <div class="container py-5">
                         <div class="section-content">
