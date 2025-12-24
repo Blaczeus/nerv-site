@@ -1,4 +1,3 @@
-/* resources/js/app.ts */
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
@@ -7,6 +6,7 @@ import { createApp, h } from 'vue';
 import { initializeTheme } from './composables/useAppearance';
 import { asset } from './lib/utils';
 import { initPlugins } from './vendor/init-plugins';
+// import '../css/app.css';
 
 // VENDOR CSS
 import '../css/vendor/animate.min.css';

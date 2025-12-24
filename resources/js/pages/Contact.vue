@@ -65,25 +65,25 @@ import MainLayout from '@/layouts/MainLayout.vue'
 
                           <div class="col-lg-6 col-md-6">
                             <div class="form-group mb-4">
-                              <input type="email" class="form-control" placeholder="Email" />
+                              <input type="email" class="form-control  text-white placeholder:text-gray-400" placeholder="Email" />
                             </div>
                           </div>
 
                           <div class="col-lg-6 col-md-6">
                             <div class="form-group mb-4">
-                              <input type="text" class="form-control" placeholder="Phone" />
+                              <input type="text" class="form-control  text-white placeholder:text-gray-400" placeholder="Phone" />
                             </div>
                           </div>
 
                           <div class="col-lg-6 col-md-6">
                             <div class="form-group mb-4">
-                              <input type="text" class="form-control" placeholder="Subject" />
+                              <input type="text" class="form-control  text-white placeholder:text-gray-400" placeholder="Subject" />
                             </div>
                           </div>
 
                           <div class="col-lg-12">
                             <div class="form-group mb-5">
-                              <textarea class="form-control" rows="3" placeholder="Message"></textarea>
+                              <textarea class="form-control  text-white placeholder:text-gray-400" rows="3" placeholder="Message"></textarea>
                             </div>
                           </div>
 

@@ -1,110 +1,168 @@
 <script setup lang="ts">
-import InputError from '@/components/InputError.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import AuthBase from '@/layouts/AuthLayout.vue';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
-import { Form, Head } from '@inertiajs/vue3';
-
-defineProps<{
-    status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
-}>();
+import { Head, Form, Link } from '@inertiajs/vue3'
+import AuthLayout from '@/layouts/AuthLayout.vue'
+import { store } from '@/routes/login'
+import { request } from '@/routes/password'
+import { register } from '@/routes'
+import Spinner from '@/components/ui/spinner/Spinner.vue'
 </script>
 
 <template>
-    <AuthBase
-        title="Log in to your account"
-        description="Enter your email and password below to log in"
-    >
-        <Head title="Log in" />
 
-        <div
-            v-if="status"
-            class="mb-4 text-center text-sm font-medium text-green-600"
-        >
-            {{ status }}
-        </div>
-
-        <Form
-            v-bind="store.form()"
-            :reset-on-success="['password']"
-            v-slot="{ errors, processing }"
-            class="flex flex-col gap-6"
-        >
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        name="email"
-                        required
-                        autofocus
-                        :tabindex="1"
-                        autocomplete="email"
-                        placeholder="email@example.com"
-                    />
-                    <InputError :message="errors.email" />
-                </div>
-
-                <div class="grid gap-2">
-                    <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
-                        <TextLink
-                            v-if="canResetPassword"
-                            :href="request()"
-                            class="text-sm"
-                            :tabindex="5"
-                        >
-                            Forgot password?
-                        </TextLink>
+    <Head title="Login | Nervego" />
+    <AuthLayout>
+        <Transition name="auth" mode="out-in">  
+            <div v-if="true" key="login" class="page-content">
+                <div class="section-full site-bg-black d-flex align-items-center" style="min-height: 100vh;">
+                    <div class="container py-5">
+                        <div class="section-content">
+                            <div class="kv-contact-section wow fadeInDown" data-wow-delay="0.2">
+                                <div class="row">
+    
+                                    <!-- LOGIN FORM -->
+                                    <div class="col-xl-6 col-lg-12 col-md-12">
+                                        <div class="kv-contact-page-form site-bg-primary h-100">
+    
+                                            <div class="section-head left">
+                                                <div class="kv-sm-title left">Welcome back</div>
+                                                <h2 class="kv-large-title site-text-white">Log in</h2>
+                                            </div>
+    
+                                            <div class="contact-form-outer">
+                                                <Form v-bind="store.form()" :reset-on-success="['password']"
+                                                    v-slot="{ errors, processing }" class="cons-contact-form">
+                                                    <div class="row">
+    
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-4">
+                                                                <input type="email" name="email"
+                                                                    class="form-control text-white placeholder:text-gray-400"
+                                                                    placeholder="Email" required />
+                                                                <small v-if="errors.email" class="text-danger d-block mt-1">
+                                                                    {{ errors.email }}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+    
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group mb-4">
+                                                                <input type="password" name="password"
+                                                                    class="form-control text-white placeholder:text-gray-400"
+                                                                    placeholder="Password" required />
+                                                                <small v-if="errors.password"
+                                                                    class="text-danger d-block mt-1">
+                                                                    {{ errors.password }}
+                                                                </small>
+                                                            </div>
+                                                        </div>
+    
+                                                        <div class="col-lg-12 mb-4 d-flex justify-content-between">
+                                                            <label class="site-text-white d-flex align-items-center gap-2">
+                                                                <input type="checkbox" name="remember" />
+                                                                <span>Remember me</span>
+                                                            </label>
+    
+                                                            <Link :href="request()" class="site-text-white">
+                                                                Forgot password?
+                                                            </Link>
+                                                        </div>
+    
+                                                        <div class="col-md-12">
+                                                            <button type="submit"
+                                                                class="site-button dark-bg w-100 d-flex align-items-center justify-content-center"
+                                                                :disabled="processing">
+                                                                <Spinner v-if="processing" />
+                                                                <span class="ms-2">
+                                                                    {{ processing ? 'Logging in…' : 'Log in' }}
+                                                                </span>
+                                                            </button>
+                                                        </div>
+    
+                                                    </div>
+                                                </Form>
+                                                <div class="text-center mt-4 site-text-white">
+                                                    Don’t have an account?
+                                                    <Link :href="register()">Register</Link>
+                                                </div>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+    
+                                    <!-- LOGIN DETAILS / INFO -->
+                                    <div class="col-xl-6 col-lg-12 col-md-12">
+                                        <div class="kv-contact-page-detail h-100 d-flex flex-column justify-content-center">
+    
+                                            <div class="section-head left">
+                                                <h2 class="kv-large-title site-text-white">
+                                                    Build, manage and grow with Nervego
+                                                </h2>
+                                                <p class="p-text">
+                                                    Access your dashboard, manage content, and stay connected with
+                                                    the Nervego ecosystem.
+                                                </p>
+                                            </div>
+    
+                                            <div class="row align-items-stretch">
+    
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="kv-icon-style-left">
+                                                        <div class="kv-media">
+                                                            <i class="feather feather-lock"></i>
+                                                        </div>
+                                                        <div class="kv-content">
+                                                            <h3 class="kv-title">Secure Access</h3>
+                                                            <p>Your data is protected</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="kv-icon-style-left">
+                                                        <div class="kv-media">
+                                                            <i class="feather feather-user"></i>
+                                                        </div>
+                                                        <div class="kv-content">
+                                                            <h3 class="kv-title">Personal Dashboard</h3>
+                                                            <p>Manage your account</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="kv-icon-style-left">
+                                                        <div class="kv-media">
+                                                            <i class="feather feather-bar-chart-2"></i>
+                                                        </div>
+                                                        <div class="kv-content">
+                                                            <h3 class="kv-title">Insights</h3>
+                                                            <p>Track activity & growth</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="kv-icon-style-left">
+                                                        <div class="kv-media">
+                                                            <i class="feather feather-settings"></i>
+                                                        </div>
+                                                        <div class="kv-content">
+                                                            <h3 class="kv-title">Control</h3>
+                                                            <p>Manage preferences</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        name="password"
-                        required
-                        :tabindex="2"
-                        autocomplete="current-password"
-                        placeholder="Password"
-                    />
-                    <InputError :message="errors.password" />
                 </div>
-
-                <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" name="remember" :tabindex="3" />
-                        <span>Remember me</span>
-                    </Label>
-                </div>
-
-                <Button
-                    type="submit"
-                    class="mt-4 w-full"
-                    :tabindex="4"
-                    :disabled="processing"
-                    data-test="login-button"
-                >
-                    <Spinner v-if="processing" />
-                    Log in
-                </Button>
             </div>
-
-            <div
-                class="text-center text-sm text-muted-foreground"
-                v-if="canRegister"
-            >
-                Don't have an account?
-                <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
-            </div>
-        </Form>
-    </AuthBase>
+        </Transition>
+    </AuthLayout>
 </template>
