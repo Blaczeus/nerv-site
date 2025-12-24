@@ -1,14 +1,41 @@
-<script setup lang="ts">
-import AuthLayout from '@/layouts/auth/AuthSimpleLayout.vue';
-
-defineProps<{
-    title?: string;
-    description?: string;
-}>();
-</script>
-
 <template>
-    <AuthLayout :title="title" :description="description">
-        <slot />
-    </AuthLayout>
+    <div class="page-wraper">
+        <Loader :visible="loading" />
+        <!-- <Header no-navigation /> -->
+
+        <main>
+            <slot />
+        </main>
+    </div>
 </template>
+
+<script setup lang="ts">
+// import Header from '@/components/new/Header.vue'
+import Loader from '@/components/new/Loader.vue'
+import { ref, onMounted } from 'vue'
+import { router } from '@inertiajs/vue3'
+
+const loading = ref(true)
+let previousPage = null
+
+// Initial page load
+onMounted(() => {
+    previousPage = window.location.pathname
+    setTimeout(() => loading.value = false, 500)
+})
+
+// Only show loader when navigating to a DIFFERENT page
+router.on('navigate', (event) => {
+    const newPage = event.detail.page.url.pathname
+
+    // Only trigger loader if page changed
+    if (newPage !== previousPage) {
+        loading.value = true
+    }
+
+    router.on('finish', () => {
+        setTimeout(() => loading.value = false, 300)
+        previousPage = newPage
+    })
+})
+</script>  

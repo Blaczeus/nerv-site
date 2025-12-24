@@ -8974,6 +8974,60 @@ blockquote.author-quote .kv-bq-content .kv-bq-atr-name span {
   font-size: 20px;
 }
 
+.auth-enter-active,
+.auth-leave-active {
+    transition: all 0.25s ease;
+}
+
+.auth-enter-from {
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.auth-leave-to {
+    opacity: 0;
+    transform: translateY(-12px);
+}
+
+/* Two-factor PIN input */
+.twofa-pin {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.twofa-slot {
+    width: 44px;
+    height: 48px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.twofa-slot:focus,
+.twofa-slot[data-active="true"] {
+    border-color: #fff;
+    outline: none;
+}
+
+.twofa-slot::placeholder {
+    color: transparent;
+}
+
+.auth-toggle-link {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.auth-toggle-link:hover {
+  color: #000;
+}
+
 .light-view .kv_process_bx-wrap .kv_process_bx {
   background-color: #fafafa;
   border: 1px solid #e7e7e7;
