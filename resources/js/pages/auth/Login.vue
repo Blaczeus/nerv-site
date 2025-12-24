@@ -12,7 +12,7 @@ import Spinner from '@/components/ui/spinner/Spinner.vue'
     <Head title="Login | Nervego" />
     <AuthLayout>
         <Transition name="auth" mode="out-in">  
-            <div key="login" class="page-content">
+            <div v-if="true" key="login" class="page-content">
                 <div class="section-full site-bg-black d-flex align-items-center" style="min-height: 100vh;">
                     <div class="container py-5">
                         <div class="section-content">
