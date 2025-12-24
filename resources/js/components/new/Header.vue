@@ -2,27 +2,34 @@
 import { Link } from '@inertiajs/vue3'
 import { onMounted } from 'vue'
 
-onMounted(() => {
-  const btn = document.getElementById('mobile-side-drawer');
-  const header = document.querySelector('.mobile-sider-drawer-menu');
-  const nav = document.querySelector('.header-nav');
+defineProps<{
+  noNavigation?: boolean
+}>()
 
-  btn.addEventListener('click', () => {
-    nav.classList.toggle('show');
-  });
+onMounted(() => {
+  const btn = document.getElementById('mobile-side-drawer')
+  const header = document.querySelector('.mobile-sider-drawer-menu')
+  const nav = document.querySelector('.header-nav')
+
+  if (btn && nav) {
+    btn.addEventListener('click', () => {
+      nav.classList.toggle('show')
+    })
+  }
 
   if (btn && header) {
     btn.addEventListener('click', () => {
-      header.classList.toggle('active');
-    });
+      header.classList.toggle('active')
+    })
   }
-});
+})
+
 </script>
 
 <template>
   <header class="site-header header-style-1 mobile-sider-drawer-menu site-bg-black top-bar-style-2">
     <div class="header-style-2-content">
-      <div class="top-bar site-bg-dark">
+      <div v-if="!noNavigation" class="top-bar site-bg-dark">
         <div class="container">
 
           <div class="top-bar-wrap">
@@ -67,7 +74,7 @@ onMounted(() => {
                 <div class="header-bottom">
                   <div class="container-block clearfix">
 
-                    <div class="navigation-bar">
+                    <div v-if="!noNavigation" class="navigation-bar">
                       <!-- NAV Toggle Button -->
                       <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button"
                         class="navbar-toggler collapsed">
@@ -144,9 +151,9 @@ onMounted(() => {
                   <a href="#search" class="header-search-icon"><i class="fa fa-search"></i></a>
                 </div>
               </div>
-              <div class="extra-cell two">
+              <div v-if="!noNavigation" class="extra-cell two">
                 <div class="header-btn">
-                  <a href="#" class="site-button"><em>Login here</em></a>
+                  <Link href="/login" class="site-button"><em>Login here</em></Link>
                 </div>
               </div>
             </div>

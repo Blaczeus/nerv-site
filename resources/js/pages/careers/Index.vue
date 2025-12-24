@@ -29,7 +29,7 @@ const jobs = computed(() =>
       title: job.title,
       slug: job.slug,
       status: job.status,
-      image: 'blog/latest/bg4.jpg',
+      image: '/collab_innovation2.png',
       date,
       month,
       summary1: `${job.jobType} • ${job.location} • ${job.startDate}`,
