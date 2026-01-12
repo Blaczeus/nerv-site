@@ -160,9 +160,9 @@ const job = computed<Job | undefined>(() =>
 
                       <!-- APPLY BUTTON -->
                       <div class="kv-content m-b30">
-                        <a v-if="job.status === 'open'"
-                          :href="`mailto:${companyInfo.careersEmail}?subject=Application ${job.title} - [Your Full Name]`"
-                          class="site-button">
+                        <a v-if="job.status === 'open'" :href="`mailto:${companyInfo.careersEmail}?subject=${encodeURIComponent(
+                          `Application ${job.title} - Your Full Name`
+                        )}`" class="site-button">
                           <em>Apply</em>
                         </a>
 

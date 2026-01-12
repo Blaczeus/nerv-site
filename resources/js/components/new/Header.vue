@@ -1,33 +1,53 @@
 <script lang="ts" setup>
+import { asset } from '@/lib/utils';
 import { Link } from '@inertiajs/vue3'
-import { onMounted } from 'vue'
+import { ref } from 'vue'
 
-defineProps<{
-  noNavigation?: boolean
-}>()
+defineProps<{ noNavigation?: boolean }>()
 
-onMounted(() => {
-  const btn = document.getElementById('mobile-side-drawer')
-  const header = document.querySelector('.mobile-sider-drawer-menu')
-  const nav = document.querySelector('.header-nav')
+// mobile menu
+const mobileMenuOpen = ref(false)
+const isTouch = ref(false)
 
-  if (btn && nav) {
-    btn.addEventListener('click', () => {
-      nav.classList.toggle('show')
-    })
+// if (typeof window !== 'undefined') {
+//   const media = window.matchMedia('(pointer: coarse)')
+//   isTouch.value = media.matches
+
+//   media.addEventListener('change', (e) => {
+//     isTouch.value = e.matches
+//   })
+// }
+
+function handleParentClick(e: MouseEvent, name: string) {
+  if (!isTouch.value) return
+
+  // If dropdown is closed → open it, don't navigate
+  if (openDropdown.value !== name) {
+    e.preventDefault()
+    openDropdown.value = name
   }
+}
 
-  if (btn && header) {
-    btn.addEventListener('click', () => {
-      header.classList.toggle('active')
-    })
+function toggleMobileMenu() {
+  if (!mobileMenuOpen.value) {
+    mobileMenuOpen.value = true
+  } else {
+    mobileMenuOpen.value = false
   }
-})
+}
 
+// dropdowns (track which one is open)
+const openDropdown = ref<string | null>(null)
+
+function closeAll() {
+  mobileMenuOpen.value = false
+  openDropdown.value = null
+}
 </script>
 
 <template>
-  <header class="site-header header-style-1 mobile-sider-drawer-menu site-bg-black top-bar-style-2">
+  <header
+    :class="['site-header header-style-1 mobile-sider-drawer-menu site-bg-black top-bar-style-2', { active: mobileMenuOpen }]">
     <div class="header-style-2-content">
       <div v-if="!noNavigation" class="top-bar site-bg-dark">
         <div class="container">
@@ -63,7 +83,7 @@ onMounted(() => {
             <div class="logo-header">
               <div class="logo-header-inner logo-header-one">
                 <Link href="/">
-                <img :src="asset('nervgo.png')" alt="">
+                  <img :src="asset('nervgo.png')" alt="">
                 </Link>
               </div>
             </div>
@@ -76,61 +96,71 @@ onMounted(() => {
 
                     <div v-if="!noNavigation" class="navigation-bar">
                       <!-- NAV Toggle Button -->
-                      <button id="mobile-side-drawer" data-target=".header-nav" data-toggle="collapse" type="button"
-                        class="navbar-toggler collapsed">
+                      <button type="button" class="navbar-toggler collapsed" @click="toggleMobileMenu()">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar icon-bar-first"></span>
                         <span class="icon-bar icon-bar-two"></span>
                         <span class="icon-bar icon-bar-three"></span>
                       </button>
 
-                      <!-- MAIN Vav -->
-                      <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-between">
+                      <!-- MAIN Nav -->
+                      <div class="nav-animation header-nav d-flex justify-content-between">
 
                         <ul class=" nav navbar-nav">
                           <li>
-                            <Link href="/">Home</Link>
+                            <Link href="/" @click="closeAll()">Home</Link>
                           </li>
-                          <li class="has-child"><a href="#">Our Company</a>
-                            <ul class="sub-menu">
+                          <li class="has-child" :class="{ active: openDropdown === 'company' }">
+                            <a href="#" @click="handleParentClick($event, 'company')">
+                              Our Company
+                            </a>
+                            <ul class="sub-menu" :class="{ 'is-open': isTouch && openDropdown === 'company' }">
                               <li>
-                                <Link href="/about">About Us</Link>
+                                <Link href="/about" @click="closeAll()">About Us</Link>
                               </li>
                               <li>
-                                <Link href="/careers">Careers</Link>
-                              </li>
-                            </ul>
-                          </li>
-                          <li class="has-child"><a href="#">Programs</a>
-                            <ul class="sub-menu">
-                              <li>
-                                <Link href="/programs/mentorship-and-talent">Mentorship & Talent</Link>
-                              </li>
-                              <li>
-                                <Link href="/programs/tech-communities">Tech Community</Link>
-                              </li>
-                              <li>
-                                <Link href="/programs/funding-and-support">Funding & Support</Link>
+                                <Link href="/careers" @click="closeAll()">Careers</Link>
                               </li>
                             </ul>
                           </li>
                           <li class="has-child">
-                            <a href="#">Learning & Events</a>
-                            <ul class="sub-menu">
+                            <a href="#" @click="handleParentClick($event, 'programs')">
+                              Programs
+                            </a>
+
+                            <ul class="sub-menu" :class="{ 'is-open': isTouch && openDropdown === 'programs' }">
                               <li>
-                                <Link href="/events">Events</Link>
+                                <Link href="/programs/mentorship-and-talent" @click="closeAll()">Mentorship & Talent
+                                </Link>
                               </li>
                               <li>
-                                <Link href="/blog">Blogs</Link>
+                                <Link href="/programs/tech-communities" @click="closeAll()">Tech Community</Link>
+                              </li>
+                              <li>
+                                <Link href="/programs/funding-and-support" @click="closeAll()">Funding & Support</Link>
+                              </li>
+                            </ul>
+                          </li>
+                          <li class="has-child">
+                            <a href="#" @click="handleParentClick($event, 'learning')">
+                              Learning & Events
+                            </a>
+
+                            <ul class="sub-menu" :class="{ 'is-open': isTouch && openDropdown === 'learning' }">
+                              <li>
+                                <Link href="/events" @click="closeAll()">Events</Link>
+                              </li>
+                              <li>
+                                <Link href="/blog" @click="closeAll()">Blogs</Link>
                               </li>
                             </ul>
                           </li>
                           <!-- <li><a href="{{ url('/contact') }}">Community</a></li> -->
                           <!-- <li>
-                            <Link href="/events">Events</Link>
+                            <Link href="/events" @click="closeAll()">Events</Link>
                           </li> -->
                           <li>
-                            <Link href="/contact">Contact</Link>
+                            <Link href="/contact" @click="closeAll()">Contact</Link>
                           </li>
 
                         </ul>
