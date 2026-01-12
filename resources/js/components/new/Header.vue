@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+import { asset } from '@/lib/utils';
 import { Link } from '@inertiajs/vue3'
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 
 defineProps<{ noNavigation?: boolean }>()
 
@@ -37,10 +38,6 @@ function toggleMobileMenu() {
 
 // dropdowns (track which one is open)
 const openDropdown = ref<string | null>(null)
-
-function toggleDropdown(name: string) {
-  openDropdown.value = openDropdown.value === name ? null : name
-}
 
 function closeAll() {
   mobileMenuOpen.value = false
