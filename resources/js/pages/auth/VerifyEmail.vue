@@ -24,7 +24,7 @@ defineProps<{
                                 <div class="row">
 
                                     <!-- FORM -->
-                                    <div class="col-xl-6 col-lg-12 col-md-12">
+                                    <div class="col-xl-6 col-lg-12 col-md-12 auth-form-wrapper">
                                         <div
                                             class="kv-contact-page-form site-bg-primary h-100 d-flex flex-column justify-content-center">
 
@@ -67,7 +67,7 @@ defineProps<{
                                     </div>
 
                                     <!-- INFO / ILLUSTRATION -->
-                                    <div class="col-xl-6 col-lg-12 col-md-12">
+                                    <div class="col-xl-6 col-lg-12 col-md-12 auth-right-panel">
                                         <div
                                             class="kv-contact-page-detail h-100 d-flex flex-column justify-content-center">
 
