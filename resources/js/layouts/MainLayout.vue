@@ -4,7 +4,7 @@
     <Header />
 
     <main>
-      <slot />
+      <slot :key="pageKey" />
     </main>
 
     <Footer />
@@ -17,30 +17,50 @@ import Header from '@/components/new/Header.vue'
 import Footer from '@/components/new/Footer.vue'
 import Loader from '@/components/new/Loader.vue'
 import ScrollToTop from '@/components/new/ScrollToTop.vue'
-import { ref, onMounted } from 'vue'
-import { router } from '@inertiajs/vue3'
 
-const loading = ref(true)
-let previousPage = null
+import { ref, onMounted, nextTick, computed } from 'vue'
+import { router, usePage } from '@inertiajs/vue3'
+import { initPlugins } from '@/vendor/init-plugins'
 
-// Initial page load
-onMounted(() => {
-  previousPage = window.location.pathname
-  setTimeout(() => loading.value = false, 500)
+const loading = ref(false)
+
+const page = usePage()
+
+// Force a fresh DOM render ONLY for the homepage
+const pageKey = computed(() => {
+  return page.url === '/' ? `home` : page.url
 })
 
-// Only show loader when navigating to a DIFFERENT page
-router.on('navigate', (event) => {
-  const newPage = event.detail.page.url.pathname
 
-  // Only trigger loader if page changed
-  if (newPage !== previousPage) {
+// Handle Inertia navigation (clicking links)
+router.on('finish', async (event) => {
+  const path = event.detail.visit.url.pathname
+
+  if (path === '/') {
     loading.value = true
-  }
+    await nextTick()
 
-  router.on('finish', () => {
-    setTimeout(() => loading.value = false, 300)
-    previousPage = newPage
-  })
+    setTimeout(async () => {
+      loading.value = false
+      await nextTick()
+      initPlugins()
+    }, 300)
+  }
+})
+
+
+// Handle hard reload / initial load
+onMounted(async () => {
+  if (window.location.pathname === '/') {
+    loading.value = true
+    await nextTick()
+
+    setTimeout(async () => {
+      loading.value = false
+      await nextTick()
+      initPlugins()
+    }, 500)
+  }
 })
 </script>
+   
