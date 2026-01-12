@@ -3034,6 +3034,11 @@ ol li {
   position: relative;
 }
 
+/* Desktop hover */
+.has-child:hover > .sub-menu {
+  display: block;
+}
+
 /* Touch devices only */
 @media (hover: none) {
   .sub-menu {
@@ -3044,6 +3049,8 @@ ol li {
     display: block;
   }
 }
+
+
 
 /*Auth Page===============================*/
 @media (max-width: 1200px) {
