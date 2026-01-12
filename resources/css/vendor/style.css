@@ -3034,6 +3034,28 @@ ol li {
   position: relative;
 }
 
+/* Touch devices only */
+@media (hover: none) {
+  .sub-menu {
+    display: none;
+  }
+
+  .sub-menu.is-open {
+    display: block;
+  }
+}
+
+/*Auth Page===============================*/
+@media (max-width: 1200px) {
+  .auth-right-panel {
+    display: none;
+  }
+
+  .auth-form-wrapper {
+    width: 100%;
+  }
+}
+
 .main-bar {
   width: 100%;
   transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1) 0s;
