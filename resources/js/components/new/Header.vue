@@ -1,49 +1,84 @@
 <script lang="ts" setup>
-import { asset } from '@/lib/utils';
+import { asset } from '@/lib/utils'
 import { Link } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 defineProps<{ noNavigation?: boolean }>()
 
-// mobile menu
+// 
+// Interaction state
+// 
+
+// Controls mobile slide-out menu
 const mobileMenuOpen = ref(false)
+
+// TRUE only when the device is primarily touch-based
+// IMPORTANT:
+// - This is NOT screen-size based
+// - DevTools device mode can flip this
+// - This listens for changes so Vue stays in sync
 const isTouch = ref(false)
 
-// if (typeof window !== 'undefined') {
-//   const media = window.matchMedia('(pointer: coarse)')
-//   isTouch.value = media.matches
+/**
+ * NOTE TO SELF:
+ * -------------
+ * I'm using `(pointer: coarse)` here on purpose instead of screen width.
+ *
+ * Screen size does NOT reliably tell me how users interact.
+ * Tablets can be wide but still touch-only, and DevTools device mode
+ * also simulates touch input.
+ *
+ * Hover vs click behavior needs to switch based on input type,
+ * not breakpoints.
+ *
+ * Do NOT replace this with width-based checks unless I want
+ * to break dropdowns again.
+ */
 
-//   media.addEventListener('change', (e) => {
-//     isTouch.value = e.matches
-//   })
-// }
+// Track which dropdown is open (touch only)
+const openDropdown = ref<string | null>(null)
+
+onMounted(() => {
+  const media = window.matchMedia('(pointer: coarse)')
+  isTouch.value = media.matches
+
+  media.addEventListener('change', (e) => {
+    isTouch.value = e.matches
+  })
+})
+
+// 
+// Navigation handlers
+// 
+
+function toggleMobileMenu() {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+// Handles parent nav item clicks (touch devices only)
+//
+// Desktop:
+// - Hover is handled purely by CSS
+// - Click should navigate normally
+//
+// Touch:
+// - First tap opens dropdown
+// - Second tap navigates
 
 function handleParentClick(e: MouseEvent, name: string) {
   if (!isTouch.value) return
 
-  // If dropdown is closed → open it, don't navigate
   if (openDropdown.value !== name) {
     e.preventDefault()
     openDropdown.value = name
   }
 }
 
-function toggleMobileMenu() {
-  if (!mobileMenuOpen.value) {
-    mobileMenuOpen.value = true
-  } else {
-    mobileMenuOpen.value = false
-  }
-}
-
-// dropdowns (track which one is open)
-const openDropdown = ref<string | null>(null)
-
 function closeAll() {
   mobileMenuOpen.value = false
   openDropdown.value = null
 }
-</script>
+</script>  
 
 <template>
   <header
