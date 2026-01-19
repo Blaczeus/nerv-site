@@ -8,15 +8,15 @@ import { asset } from './lib/utils';
 import { initPlugins } from './vendor/init-plugins';
 // import '../css/app.css';
 
-// VENDOR CSS
-import '../css/vendor/animate.min.css';
-import '../css/vendor/bootstrap.min.css';
-import '../css/vendor/feather.css';
-import '../css/vendor/font-awesome.min.css';
-import '../css/vendor/magnific-popup.min.css';
-import '../css/vendor/owl.carousel.min.css';
-import '../css/vendor/style.css';
-import '../css/vendor/swiper-bundle.min.css';
+// // VENDOR CSS
+// import '../css/vendor/animate.min.css';
+// import '../css/vendor/bootstrap.min.css';
+// import '../css/vendor/feather.css';
+// import '../css/vendor/font-awesome.min.css';
+// import '../css/vendor/magnific-popup.min.css';
+// import '../css/vendor/owl.carousel.min.css';
+// import '../css/vendor/style.css';
+// import '../css/vendor/swiper-bundle.min.css';
 
 /*
 |--------------------------------------------------------------------------

@@ -1,15 +1,15 @@
 <template>
-  <div class="page-wraper">
-    <Loader :visible="loading" />
-    <Header />
+    <div class="page-wraper">
+        <Loader :visible="loading" />
+        <Header />
 
-    <main>
-      <slot :key="pageKey" />
-    </main>
+        <main>
+            <slot :key="pageKey" />
+        </main>
 
-    <Footer />
-    <ScrollToTop />
-  </div>
+        <Footer />
+        <ScrollToTop />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +21,8 @@ import ScrollToTop from '@/components/new/ScrollToTop.vue'
 import { ref, onMounted, nextTick, computed } from 'vue'
 import { router, usePage } from '@inertiajs/vue3'
 import { initPlugins } from '@/vendor/init-plugins'
+
+import '../../css/legacy.css'
 
 const loading = ref(false)
 
@@ -63,4 +65,3 @@ onMounted(async () => {
   }
 })
 </script>
-   

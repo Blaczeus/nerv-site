@@ -1,42 +1,61 @@
 <script setup lang="ts">
-// import AppLayout from '@/layouts/AppLayout.vue';
-// import { dashboard } from '@/routes';
-// import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
-import PlaceholderPattern from '../components/PlaceholderPattern.vue';
+import { Head } from '@inertiajs/vue3'
+import AppLayout from '@/layouts/AppLayout.vue'
 
+const props = defineProps<{
+    auth: {
+        user: {
+            name: string
+            email: string
+            created_at: string
+            email_verified_at: string | null
+        }
+    }
+}>()
 
+const user = props.auth.user
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <AppLayout>
+        <Head title="Dashboard" />
 
-    <!-- <AppLayout :breadcrumbs="breadcrumbs"> -->
-        <div
-            class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
-        >
-            <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-                <div
-                    class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-                >
-                    <PlaceholderPattern />
+        <template #header>
+            <h1 class="text-3xl font-bold tracking-tight text-white">
+                Dashboard
+            </h1>
+        </template>
+
+        <div class="rounded-xl border border-white/10 bg-gray-900/50 p-6">
+            <h2 class="text-xl font-semibold text-white">
+                Welcome back, {{ user.name }}
+            </h2>
+
+            <p class="mt-2 text-sm text-gray-400">
+                Your account is authenticated and ready. This dashboard will be expanded soon.
+            </p>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-3">
+                <div class="rounded-lg bg-gray-800 p-4">
+                    <p class="text-sm text-gray-400">Email</p>
+                    <p class="font-medium text-white">{{ user.email }}</p>
                 </div>
-                <div
-                    class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-                >
-                    <PlaceholderPattern />
+
+                <div class="rounded-lg bg-gray-800 p-4">
+                    <p class="text-sm text-gray-400">Email status</p>
+                    <p class="font-medium text-white">
+                        <span v-if="user.email_verified_at">Verified ✅</span>
+                        <span v-else>Not verified ❌</span>
+                    </p>
                 </div>
-                <div
-                    class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
-                >
-                    <PlaceholderPattern />
+
+                <div class="rounded-lg bg-gray-800 p-4">
+                    <p class="text-sm text-gray-400">Member since</p>
+                    <p class="font-medium text-white">
+                        {{ new Date(user.created_at).toLocaleDateString() }}
+                    </p>
                 </div>
-            </div>
-            <div
-                class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
-            >
-                <PlaceholderPattern />
             </div>
         </div>
-    <!-- </AppLayout> -->
+    </AppLayout>
 </template>

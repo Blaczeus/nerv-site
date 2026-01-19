@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
 import MainLayout from '@/layouts/MainLayout.vue';
+import { asset } from '@/lib/utils';
 
 </script>
-    
+
 <template>
 
     <Head>

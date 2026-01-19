@@ -70,7 +70,7 @@ Route::get('/programs/funding-and-support', [ProgramsController::class, 'funding
 // Dashboard (protected)
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Staff routes
 Route::get('/staffs/anya-chidiebere', function () {
