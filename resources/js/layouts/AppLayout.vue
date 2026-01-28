@@ -9,7 +9,7 @@ import {
     MenuItems,
 } from '@headlessui/vue';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline';
-import { router, usePage } from '@inertiajs/vue3';
+import { Link, router, usePage } from '@inertiajs/vue3';
 
 import '../../css/app.css';
 
@@ -46,21 +46,14 @@ function handleUserAction(item: any) {
                         </div>
                         <div class="hidden md:block">
                             <div class="ml-10 flex items-baseline space-x-4">
-                                <a
+                                <Link
                                     v-for="item in navigation"
                                     :key="item.name"
                                     :href="item.href"
-                                    :class="[
-                                        item.current
-                                            ? 'bg-gray-950/50 text-white'
-                                            : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                                        'rounded-md px-3 py-2 text-sm font-medium',
-                                    ]"
-                                    :aria-current="
-                                        item.current ? 'page' : undefined
-                                    "
-                                    >{{ item.name }}</a
+                                    class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white"
                                 >
+                                    {{ item.name }}
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -184,13 +177,17 @@ function handleUserAction(item: any) {
                     </div>
                     <div class="mt-3 space-y-1 px-2">
                         <DisclosureButton
-                            v-for="item in userNavigation"
+                            v-for="item in navigation"
                             :key="item.name"
-                            as="a"
-                            :href="item.href"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white"
-                            >{{ item.name }}</DisclosureButton
+                            as="div"
                         >
+                            <Link
+                                :href="item.href"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/5 hover:text-white"
+                            >
+                                {{ item.name }}
+                            </Link>
+                        </DisclosureButton>
                     </div>
                 </div>
             </DisclosurePanel>
