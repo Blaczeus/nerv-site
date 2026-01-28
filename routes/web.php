@@ -68,9 +68,13 @@ Route::get('/programs/tech-communities', [ProgramsController::class, 'community'
 Route::get('/programs/funding-and-support', [ProgramsController::class, 'funding'])->name('programs.funding');
 
 // Dashboard (protected)
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    // future app routes live here
+});
 
 // Staff routes
 Route::get('/staffs/anya-chidiebere', function () {
