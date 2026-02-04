@@ -23,6 +23,7 @@ const emit = defineEmits<{
     (e: 'toggle-collapse'): void;
     (e: 'close-mobile'): void;
     (e: 'hover-change', hovering: boolean): void;
+    (e: 'profile-action', action: string): void;
 }>();
 
 const assets = (path: string) => `/assets/images/rubick/${path}`;
@@ -36,8 +37,14 @@ const assets = (path: string) => `/assets/images/rubick/${path}`;
             'side-menu--mobile-menu-open': mobileOpen,
             'side-menu--on-hover': isHovering,
         }"
-        @mouseenter="emit('hover-change', true)"
-        @mouseleave="emit('hover-change', false)"
+        @mouseenter="
+            isHovering = true;
+            emit('hover-change', true);
+        "
+        @mouseleave="
+            isHovering = false;
+            emit('hover-change', false);
+        "
     >
         <!-- Mobile overlay / click-to-close -->
         <div
@@ -56,53 +63,38 @@ const assets = (path: string) => `/assets/images/rubick/${path}`;
         >
             <!-- Logo / top section -->
             <div
-                class="relative z-10 hidden h-[65px] w-[275px] flex-none items-center overflow-hidden px-6 duration-200 xl:flex
-                   group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px]
-                   group-[.side-menu--collapsed]:xl:w-[110px]"
+                class="relative z-10 hidden h-[65px] w-[275px] flex-none items-center overflow-hidden px-6 duration-200 xl:flex group-[.side-menu--collapsed]:xl:w-[110px] group-[.side-menu--collapsed.side-menu--on-hover]:xl:w-[275px]"
+            >
+                <a
+                    class="flex items-center transition-[margin] duration-200 xl:ml-2 group-[.side-menu--collapsed]:xl:ml-6 group-[.side-menu--collapsed.side-menu--on-hover]:xl:ml-2"
+                    href="#"
+                >
+                    <img class="size-5" :src="assets('logo.svg')" />
+
+                    <div
+                        class="ml-3.5 text-nowrap transition-opacity duration-200 group-[.side-menu--collapsed]:xl:opacity-0 group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100"
                     >
-                        <a
-                            class="flex items-center transition-[margin] duration-200 xl:ml-2
-                       group-[.side-menu--collapsed.side-menu--on-hover]:xl:ml-2
-                       group-[.side-menu--collapsed]:xl:ml-6"
-                            href="#"
-                        >
-                            <img class="size-5" :src="assets('logo.svg')" />
-
-                            <div
-                                class="ml-3.5 text-nowrap transition-opacity duration-200
-                           group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100
-                           group-[.side-menu--collapsed]:xl:opacity-0"
-                            >
-                                <span class="text-base font-medium">Midone </span>
-                                <span class="text-base font-light">Rubick</span>
-                            </div>
-                        </a>
-
-                        <!-- Collapse toggle: emit intent -->
-                        <a
-                            href="#"
-                            class="toggle-compact-menu ml-auto hidden items-center justify-center rounded-md
-                       border border-background/20 bg-background/10 py-0.5 pl-0.5 pr-1
-                       opacity-70 transition-[opacity,transform] duration-200 hover:opacity-100
-                       group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100
-                       group-[.side-menu--collapsed]:xl:opacity-0
-                       xl:flex
-                       dark:border-foreground/[.09] dark:bg-foreground/[.02]"
-                            @click.prevent="emit('toggle-collapse')"
-                        >
-                            <ChevronRight
-                                v-if="props.collapsed"
-                                class="size-4 transition-transform duration-200
-                           fill-(--color)/25 stroke-(--color) stroke-[1.5] [--color:currentColor]"
-                            />
-                            <ChevronLeft
-                                v-else
-                                class="size-4 transition-transform duration-200
-                           fill-(--color)/25 stroke-(--color) stroke-[1.5] [--color:currentColor]"
-                            />
-                        </a>
+                        <span class="text-base font-medium">Midone </span>
+                        <span class="text-base font-light">Rubick</span>
                     </div>
+                </a>
 
+                <!-- Collapse toggle: emit intent -->
+                <a
+                    href="#"
+                    class="toggle-compact-menu ml-auto hidden items-center justify-center rounded-md border border-background/20 bg-background/10 py-0.5 pr-1 pl-0.5 opacity-70 transition-[opacity,transform] duration-200 hover:opacity-100 xl:flex group-[.side-menu--collapsed]:xl:opacity-0 group-[.side-menu--collapsed.side-menu--on-hover]:xl:opacity-100 dark:border-foreground/[.09] dark:bg-foreground/[.02]"
+                    @click.prevent="emit('toggle-collapse')"
+                >
+                    <ChevronRight
+                        v-if="props.collapsed"
+                        class="size-4 fill-(--color)/25 stroke-(--color) stroke-[1.5] transition-transform duration-200 [--color:currentColor]"
+                    />
+                    <ChevronLeft
+                        v-else
+                        class="size-4 fill-(--color)/25 stroke-(--color) stroke-[1.5] transition-transform duration-200 [--color:currentColor]"
+                    />
+                </a>
+            </div>
 
             <!-- Scrollable area -->
             <div
@@ -200,13 +192,10 @@ const assets = (path: string) => `/assets/images/rubick/${path}`;
                         </div>
                         <div class="h-px bg-foreground/5"></div>
                         <div class="flex flex-col gap-0.5">
-                            <a
-                                class="-mx-3 flex gap-2.5 rounded-lg px-4 py-1.5 hover:bg-foreground/5"
-                                href="#"
-                            >
+                            <a class="-mx-3 flex gap-2.5 rounded-lg px-4 py-1.5 hover:bg-foreground/5"
+                                @click.prevent="emit('profile-action', 'logout')">
                                 <Power
-                                    class="size-4 fill-(--color)/25 stroke-(--color) stroke-[1.5] [--color:currentColor]"
-                                />
+                                    class="size-4 fill-(--color)/25 stroke-(--color) stroke-[1.5] [--color:currentColor]" />
                                 Logout
                             </a>
                         </div>
