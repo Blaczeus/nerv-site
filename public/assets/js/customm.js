@@ -6,10 +6,37 @@ All JavaScript fuctions Start
     /*--------------------------------------------------------------------------------------------
 	document.ready ALL FUNCTION START
 ---------------------------------------------------------------------------------------------*/
+    const EVENT_NS = '.kvTemplate';
+
+    function initSwiper(selector, options) {
+        if (typeof Swiper === 'undefined') return;
+
+        jQuery(selector).each(function () {
+            if (this.swiper && typeof this.swiper.destroy === 'function') {
+                this.swiper.destroy(true, true);
+            }
+            // eslint-disable-next-line no-new
+            new Swiper(this, options);
+        });
+    }
+
+    function initOwlOnce(selector, options) {
+        if (!jQuery.fn || !jQuery.fn.owlCarousel) return;
+
+        jQuery(selector).each(function () {
+            const $el = jQuery(this);
+            if ($el.hasClass('owl-loaded')) return;
+            $el.owlCarousel(options);
+        });
+    }
+
+    function bind($target, events, handler) {
+        $target.off(events + EVENT_NS).on(events + EVENT_NS, handler);
+    }
 
     // Home 1 banner slider function by = swiper-bundle.min.js ________//
     function av_home_bnr_1() {
-        var swiper = new Swiper('.home-1-slider', {
+        initSwiper('.home-1-slider', {
             loop: true,
             spaceBetween: 30,
             effect: 'fade',
@@ -31,7 +58,7 @@ All JavaScript fuctions Start
 
     // Home 2 banner slider function by = swiper-bundle.min.js ________//
     function av_home_bnr_2() {
-        var swiper = new Swiper('.home-2-slider', {
+        initSwiper('.home-2-slider', {
             loop: true,
             spaceBetween: 30,
             effect: 'fade',
@@ -53,7 +80,7 @@ All JavaScript fuctions Start
 
     // Home 3 banner slider function by = swiper-bundle.min.js ________//
     function av_home_bnr_3() {
-        var swiper = new Swiper('.home-3-slider', {
+        initSwiper('.home-3-slider', {
             loop: true,
             spaceBetween: 30,
             effect: 'fade',
@@ -75,7 +102,7 @@ All JavaScript fuctions Start
 
     //testimonial function by = owl.carousel.js________//
     function av_testi_carousel() {
-        jQuery('.kv-testimonial-carousel').owlCarousel({
+        initOwlOnce('.kv-testimonial-carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -102,7 +129,7 @@ All JavaScript fuctions Start
 
     //testimonial function by = owl.carousel.js________//
     function av_testi2_carousel() {
-        jQuery('.kv-testimonial2-carousel').owlCarousel({
+        initOwlOnce('.kv-testimonial2-carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -129,7 +156,7 @@ All JavaScript fuctions Start
 
     // blog carousel function by = owl.carousel.js________//
     function av_blog_carousel() {
-        jQuery('.kv-blog-carousel').owlCarousel({
+        initOwlOnce('.kv-blog-carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -156,7 +183,7 @@ All JavaScript fuctions Start
 
     // Project carousel function by = owl.carousel.js________//
     function av_project_carousel() {
-        jQuery('.kv-project-carousel').owlCarousel({
+        initOwlOnce('.kv-project-carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -183,7 +210,7 @@ All JavaScript fuctions Start
 
     // Services2 carousel function by = owl.carousel.js________//
     function kv_services2_carousel() {
-        jQuery('.kv_services2_carousel').owlCarousel({
+        initOwlOnce('.kv_services2_carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -210,7 +237,7 @@ All JavaScript fuctions Start
 
     // Featured Project carousel function by = owl.carousel.js________//
     function av_featured_carousel() {
-        jQuery('.kv-featured-carousel').owlCarousel({
+        initOwlOnce('.kv-featured-carousel', {
             loop: true,
             autoplay: true,
             margin: 30,
@@ -245,45 +272,51 @@ All JavaScript fuctions Start
 
     // > Video responsive function by = custom.js ========================= //
     function video_responsive() {
-        jQuery('iframe[src*="youtube.com"]').wrap(
+        jQuery('iframe[src*="youtube.com"]').not('.kv-video-wrapped').wrap(
             '<div class="embed-responsive embed-responsive-16by9"></div>',
         );
-        jQuery('iframe[src*="vimeo.com"]').wrap(
+        jQuery('iframe[src*="youtube.com"]').addClass('kv-video-wrapped');
+
+        jQuery('iframe[src*="vimeo.com"]').not('.kv-video-wrapped').wrap(
             '<div class="embed-responsive embed-responsive-16by9"></div>',
         );
+        jQuery('iframe[src*="vimeo.com"]').addClass('kv-video-wrapped');
     }
 
     // > magnificPopup for video function	by = magnific-popup.js ===================== //
     function magnific_video() {
-        jQuery('.mfp-video').magnificPopup({
-            type: 'iframe',
+        jQuery('.mfp-video').each(function () {
+            const $el = jQuery(this);
+            if ($el.data('kvMagnificInit')) return;
+
+            $el.magnificPopup({
+                type: 'iframe',
+            });
+
+            $el.data('kvMagnificInit', true);
         });
     }
 
     // Vertically center Bootstrap modal popup function by = custom.js ==============//
     function popup_vertical_center() {
-        jQuery(function () {
-            function reposition() {
-                var modal = jQuery(this),
-                    dialog = modal.find('.modal-dialog');
-                modal.css('display', 'block');
+        function reposition() {
+            var modal = jQuery(this),
+                dialog = modal.find('.modal-dialog');
+            modal.css('display', 'block');
 
-                // Dividing by two centers the modal exactly, but dividing by three
-                // or four works better for larger screens.
-                dialog.css(
-                    'margin-top',
-                    Math.max(
-                        0,
-                        (jQuery(window).height() - dialog.height()) / 2,
-                    ),
-                );
-            }
-            // Reposition when a modal is shown
-            jQuery('.modal').on('show.bs.modal', reposition);
-            // Reposition when the window is resized
-            jQuery(window).on('resize', function () {
-                jQuery('.modal:visible').each(reposition);
-            });
+            dialog.css(
+                'margin-top',
+                Math.max(0, (jQuery(window).height() - dialog.height()) / 2),
+            );
+        }
+
+        jQuery('.modal').off('show.bs.modal' + EVENT_NS).on(
+            'show.bs.modal' + EVENT_NS,
+            reposition,
+        );
+
+        bind(jQuery(window), 'resize', function () {
+            jQuery('.modal:visible').each(reposition);
         });
     }
 
@@ -302,14 +335,20 @@ All JavaScript fuctions Start
 
     // > Sidebar sticky  when scroll down function by = theia-sticky-sidebar.js ========== //
     function sticky_sidebar() {
-        $('.sticky-sidebar').theiaStickySidebar({
-            additionalMarginTop: 100,
+        $('.sticky-sidebar').each(function () {
+            const $el = jQuery(this);
+            if ($el.data('kvStickySidebarInit')) return;
+
+            $el.theiaStickySidebar({
+                additionalMarginTop: 100,
+            });
+            $el.data('kvStickySidebarInit', true);
         });
     }
 
     // > page scroll top on button click function by = custom.js ===================== //
     function scroll_top() {
-        jQuery('button.scroltop').on('click', function () {
+        bind(jQuery('button.scroltop'), 'click', function () {
             jQuery('html, body').animate(
                 {
                     scrollTop: 0,
@@ -319,7 +358,7 @@ All JavaScript fuctions Start
             return false;
         });
 
-        jQuery(window).on('scroll', function () {
+        bind(jQuery(window), 'scroll', function () {
             var scroll = jQuery(window).scrollTop();
             if (scroll > 900) {
                 jQuery('button.scroltop').fadeIn(1000);
@@ -338,7 +377,8 @@ All JavaScript fuctions Start
         /*fix for IE7 and IE8  */
         if (!jQuery.support.placeholder) {
             jQuery('[placeholder]')
-                .on('focus', function () {
+                .off('focus' + EVENT_NS)
+                .on('focus' + EVENT_NS, function () {
                     if (jQuery(this).val() === jQuery(this).attr('placeholder'))
                         jQuery(this).val('');
                 })
@@ -350,7 +390,8 @@ All JavaScript fuctions Start
 
             jQuery('[placeholder]')
                 .parents('form')
-                .on('submit', function () {
+                .off('submit' + EVENT_NS)
+                .on('submit' + EVENT_NS, function () {
                     jQuery(this)
                         .find('[placeholder]')
                         .each(function () {
@@ -400,20 +441,23 @@ All JavaScript fuctions Start
 
     // Mobile side drawer function by = custom.js
     function mobile_side_drawer() {
-        jQuery('#mobile-side-drawer').on('click', function () {
+        bind(jQuery('#mobile-side-drawer'), 'click', function () {
             jQuery('.mobile-sider-drawer-menu').toggleClass('active');
         });
     }
 
     //  > Top Search bar Show Hide function by = custom.js =================== //
     function site_search() {
-        jQuery('a[href="#search"]').on('click', function (event) {
+        bind(jQuery('a[href="#search"]'), 'click', function (event) {
             jQuery('#search').addClass('open');
             jQuery('#search > form > input[type="search"]').focus();
         });
 
+        jQuery('#search, #search button.close').off(
+            'click' + EVENT_NS + ' keyup' + EVENT_NS,
+        );
         jQuery('#search, #search button.close').on(
-            'click keyup',
+            'click' + EVENT_NS + ' keyup' + EVENT_NS,
             function (event) {
                 if (
                     event.target === this ||
@@ -427,7 +471,7 @@ All JavaScript fuctions Start
 
     //  Client logo Carousel function by = owl.carousel.js ========================== //
     function home_client_carousel() {
-        jQuery('.home-client-carousel').owlCarousel({
+        initOwlOnce('.home-client-carousel', {
             loop: true,
             nav: false,
             dots: true,
@@ -456,7 +500,7 @@ All JavaScript fuctions Start
 
     //  Client logo Carousel function by = owl.carousel.js ========================== //
     function home_client_carousel_3() {
-        jQuery('.home-client-carousel3').owlCarousel({
+        initOwlOnce('.home-client-carousel3', {
             loop: true,
             nav: false,
             dots: false,
@@ -486,18 +530,12 @@ All JavaScript fuctions Start
 
     //Wow Animation
     function wow_animation() {
-        new WOW().init();
-
-        var wow = new WOW({
+        if (window.__kvWowInitialized || typeof WOW === 'undefined') return;
+        window.__kvWowInitialized = true;
+        new WOW({
             animateClass: 'animated',
             offset: 100,
-            callback: function (box) {
-                console.log(
-                    'WOW: animating <' + box.tagName.toLowerCase() + '>',
-                );
-            },
-        });
-        wow.init();
+        }).init();
     }
 
     // > skills bar function function by  = custom.js ========================= //
@@ -514,10 +552,10 @@ All JavaScript fuctions Start
     /* 2.2 skills bar widths*/
 
     function progress_bar_width() {
-        jQuery(window).on('scroll', function () {
+        bind(jQuery(window), 'scroll', function () {
             jQuery('.progress-bar').each(function () {
-                progress_bar_width = jQuery(this).attr('aria-valuenow');
-                jQuery(this).width(progress_bar_width + '%');
+                var value = jQuery(this).attr('aria-valuenow');
+                jQuery(this).width(value + '%');
             });
         });
     }
@@ -547,7 +585,7 @@ All JavaScript fuctions Start
                 $container.isotope('layout');
             });
 
-            jQuery('.masonry-filter li').on('click', function () {
+            jQuery('.masonry-filter li').off('click' + EVENT_NS).on('click' + EVENT_NS, function () {
                 var selector = jQuery(this).find('a').attr('data-filter');
                 jQuery('.masonry-filter li').removeClass('active');
                 jQuery(this).addClass('active');
