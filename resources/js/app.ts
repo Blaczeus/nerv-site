@@ -1,11 +1,13 @@
 import { createInertiaApp, router } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
-import { createApp, h } from 'vue';
+import { createApp, h, nextTick } from 'vue';
 
 import { initializeTheme } from './composables/useAppearance';
 import { asset } from './lib/utils';
 import { initPlugins } from './vendor/init-plugins';
+import './vendor/rubick';
+
 // import '../css/app.css';
 
 // // VENDOR CSS
@@ -24,6 +26,11 @@ import { initPlugins } from './vendor/init-plugins';
 |--------------------------------------------------------------------------
 */
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+async function runTemplateInit() {
+    await nextTick();
+    await initPlugins();
+}
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -49,9 +56,7 @@ createInertiaApp({
         | INITIAL PLUGIN LOAD (first page load)
         |--------------------------------------------------------------------------
         */
-        setTimeout(() => {
-            initPlugins();
-        }, 200);
+        void runTemplateInit();
 
         /*
         |--------------------------------------------------------------------------
@@ -59,9 +64,7 @@ createInertiaApp({
         |--------------------------------------------------------------------------
         */
         router.on('finish', () => {
-            setTimeout(() => {
-                initPlugins();
-            }, 200);
+            void runTemplateInit();
         });
     },
 

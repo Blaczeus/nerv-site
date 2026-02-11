@@ -91,6 +91,10 @@
     <script src="{{ asset('assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('assets/js/customm.js') }}"></script>
     <script src="{{ asset('assets/js/tickerNews.min.js') }}"></script>
+    <!-- <script src="{{ asset('/assets/js/rubick/themes/rubick.js') }}"></script>
+    <script src="{{ asset('/assets/js/rubick/vendor/simplebar.js') }}"></script>
+    <script src="{{ asset('/assets/js/rubick/vendor/dom.js') }}"></script> -->
+
 </body>
 
 </html>
