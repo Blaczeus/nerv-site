@@ -16,17 +16,18 @@ export const sidebarItems: SidebarItem[] = [
     type: 'item',
     title: 'Users',
     icon: Users,
+    roles: ['admin'],
     children: [
       {
         type: 'item',
         title: 'All Users',
-        route: '/users',
+        route: '/dashboard/users',
         icon: UserCheck,
       },
       {
         type: 'item',
         title: 'Add User',
-        route: '/users/create',
+        route: '/dashboard/users/create',
         icon: UserPlus,
       },
     ],
@@ -34,22 +35,24 @@ export const sidebarItems: SidebarItem[] = [
   {
     type: 'group',
     label: 'Marketing',
+    roles: ['admin'],
   },
   {
     type: 'item',
     title: 'Blogs',
     icon: FileText,
+    roles: ['admin'],
     children: [
       {
         type: 'item',
         title: 'All Blogs',
-        route: '/blogs',
+        route: '/dashboard/blog',
         icon: FileText,
       },
       {
         type: 'item',
         title: 'Create Blog',
-        route: '/blogs/create',
+        route: '/dashboard/blog/create',
         icon: FileText,
       },
     ],
@@ -58,17 +61,18 @@ export const sidebarItems: SidebarItem[] = [
     type: 'item',
     title: 'Job Postings',
     icon: Briefcase,
+    roles: ['admin'],
     children: [
       {
         type: 'item',
         title: 'All Jobs',
-        route: '/jobs',
+        route: '/dashboard/careers',
         icon: Briefcase,
       },
       {
         type: 'item',
         title: 'Create Job',
-        route: '/jobs/create',
+        route: '/dashboard/careers/create',
         icon: Briefcase,
       },
     ],
@@ -77,17 +81,18 @@ export const sidebarItems: SidebarItem[] = [
     type: 'item',
     title: 'Events',
     icon: Calendar,
+    roles: ['admin'],
     children: [
       {
         type: 'item',
         title: 'All Events',
-        route: '/events',
+        route: '/dashboard/events',
         icon: Calendar,
       },
       {
         type: 'item',
         title: 'Create Event',
-        route: '/events/create',
+        route: '/dashboard/events/create',
         icon: Calendar,
       },
     ],
@@ -95,11 +100,13 @@ export const sidebarItems: SidebarItem[] = [
   {
     type: 'group',
     label: 'System',
+    roles: ['admin'],
   },
   {
     type: 'item',
     title: 'Settings',
     icon: Settings,
+    roles: ['admin'],
     route: '/settings',
   },
 ];

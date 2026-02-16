@@ -2,6 +2,7 @@ export type SidebarItem =
     | {
           type: 'group';
           label: string;
+          roles?: Array<'admin' | 'user'>;
       }
     | {
           type: 'item';
@@ -10,4 +11,5 @@ export type SidebarItem =
           badge?: number;
           route?: string;
           children?: SidebarItem[];
+          roles?: Array<'admin' | 'user'>;
       };

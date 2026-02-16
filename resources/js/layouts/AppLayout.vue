@@ -14,6 +14,7 @@ import '../../css/dashboard/rubick/tiny-slider.css';
 import '../../css/dashboard/rubick/vector-map.css';
 
 const page = usePage();
+const userRole = computed(() => page.props.auth?.user?.role ?? 'user');
 
 // ---- Layout state (single source of truth) ----
 const isSidebarHovering = ref(false);
@@ -86,6 +87,43 @@ const isActive = (item: SidebarItem): boolean => {
 
     return current === target || current.startsWith(`${target}/`);
 };
+
+function roleAllows(item: SidebarItem): boolean {
+    if (!('roles' in item) || !item.roles || item.roles.length === 0) return true;
+    return item.roles.includes(userRole.value);
+}
+
+function filterSidebarItems(items: SidebarItem[]): SidebarItem[] {
+    const result: SidebarItem[] = [];
+    let pendingGroup: SidebarItem | null = null;
+
+    for (const item of items) {
+        if (item.type === 'group') {
+            pendingGroup = roleAllows(item) ? item : null;
+            continue;
+        }
+
+        if (!roleAllows(item)) continue;
+
+        let nextItem: SidebarItem = item;
+        if (item.children && item.children.length > 0) {
+            const children = item.children.filter((child) => roleAllows(child));
+            if (children.length === 0) continue;
+            nextItem = { ...item, children };
+        }
+
+        if (pendingGroup) {
+            result.push(pendingGroup);
+            pendingGroup = null;
+        }
+
+        result.push(nextItem);
+    }
+
+    return result;
+}
+
+const visibleSidebarItems = computed(() => filterSidebarItems(sidebarItems));
 
 // Scroll handler
 let scrollArea: HTMLElement | null = null;
@@ -187,7 +225,7 @@ onBeforeUnmount(() => {
     <div
         class="rubick before:bg-noise min-h-screen before:fixed before:inset-0 before:bg-primary after:fixed after:inset-0 after:bg-accent after:bg-contain after:blur-xl dark:bg-background dark:before:bg-foreground/[.01] dark:after:opacity-20">
         <!-- Side Menu Shell -->
-        <SideBar :collapsed="isSidebarCollapsed" :mobile-open="isSidebarMobileOpen" :items="sidebarItems"
+        <SideBar :collapsed="isSidebarCollapsed" :mobile-open="isSidebarMobileOpen" :items="visibleSidebarItems"
             :is-active="isActive" @toggle-collapse="toggleSidebarCollapse" @close-mobile="closeMobileSidebar"
             @hover-change="isSidebarHovering = $event" @profile-action="handleProfileAction"
             @navigate="handleNavigate" />
