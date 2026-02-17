@@ -11,31 +11,33 @@
 
 <script setup lang="ts">
 // import Header from '@/components/new/Header.vue'
-import Loader from '@/components/new/Loader.vue'
-import { ref, onMounted } from 'vue'
-import { router } from '@inertiajs/vue3'
+import Loader from '@/components/new/Loader.vue';
+import { ref, onMounted } from 'vue';
+import { router } from '@inertiajs/vue3';
 
-const loading = ref(true)
-let previousPage = null
+import '../../css/legacy.css';
+
+const loading = ref(true);
+let previousPage = null;
 
 // Initial page load
 onMounted(() => {
-    previousPage = window.location.pathname
-    setTimeout(() => loading.value = false, 500)
-})
+    previousPage = window.location.pathname;
+    setTimeout(() => (loading.value = false), 500);
+});
 
 // Only show loader when navigating to a DIFFERENT page
 router.on('navigate', (event) => {
-    const newPage = event.detail.page.url.pathname
+    const newPage = event.detail.page.url.pathname;
 
     // Only trigger loader if page changed
     if (newPage !== previousPage) {
-        loading.value = true
+        loading.value = true;
     }
 
     router.on('finish', () => {
-        setTimeout(() => loading.value = false, 300)
-        previousPage = newPage
-    })
-})
-</script>  
+        setTimeout(() => (loading.value = false), 300);
+        previousPage = newPage;
+    });
+});
+</script>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\ProgramsController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\Admin\DashboardOverviewController;
+use App\Http\Controllers\Dashboard\EventController as DashboardEventController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -67,10 +69,47 @@ Route::get('/programs/mentorship-and-talent', [ProgramsController::class, 'mento
 Route::get('/programs/tech-communities', [ProgramsController::class, 'community'])->name('programs.community');
 Route::get('/programs/funding-and-support', [ProgramsController::class, 'funding'])->name('programs.funding');
 
-// Dashboard (protected)
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Dashboard (shared layout, role-aware)
+Route::middleware(['auth', 'verified'])->prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return Inertia::render('dashboard/Overview');
+    })->name('dashboard');
+
+    // Admin-only modules
+    Route::middleware('admin')->group(function () {
+        Route::resource('events', DashboardEventController::class)
+            ->except(['show'])
+            ->names('dashboard.events');
+
+        Route::get('/blog', function () {
+            return Inertia::render('dashboard/blog/Index');
+        })->name('dashboard.blog.index');
+
+        Route::get('/blog/create', function () {
+            return Inertia::render('dashboard/blog/Create');
+        })->name('dashboard.blog.create');
+
+        Route::get('/careers', function () {
+            return Inertia::render('dashboard/careers/Index');
+        })->name('dashboard.careers.index');
+
+        Route::get('/careers/create', function () {
+            return Inertia::render('dashboard/careers/Create');
+        })->name('dashboard.careers.create');
+
+        Route::get('/users', function () {
+            return Inertia::render('dashboard/users/Index');
+        })->name('dashboard.users.index');
+
+        Route::get('/users/create', function () {
+            return Inertia::render('dashboard/users/Create');
+        })->name('dashboard.users.create');
+    });
+});
+
+// Dashboard overview data (role-aware JSON)
+Route::middleware(['auth', 'verified'])->get('/admin/dashboard/overview', DashboardOverviewController::class)
+    ->name('dashboard.overview');
 
 // Staff routes
 Route::get('/staffs/anya-chidiebere', function () {
