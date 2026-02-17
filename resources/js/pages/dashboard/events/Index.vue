@@ -92,8 +92,9 @@ function formatDate(date: string | null) {
                         link.active ? 'border-white text-white' : 'border-white/20 text-gray-300',
                         !link.url ? 'pointer-events-none opacity-50' : ''
                     ]"
-                    v-html="link.label"
-                />
+                >
+                    <span v-html="link.label"></span>
+                </Link>
             </div>
         </div>
     </AppLayout>

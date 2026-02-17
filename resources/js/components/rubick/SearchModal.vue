@@ -7,8 +7,7 @@ import {
 
 const assets = (path: string) => `/assets/images/rubick/${path}`
 
-// Props
-const props = defineProps<{
+defineProps<{
   show: boolean;
 }>();
 

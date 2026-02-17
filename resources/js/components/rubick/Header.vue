@@ -12,8 +12,7 @@ import {
     Settings,
 } from 'lucide-vue-next';
 
-// Props
-const props = defineProps<{
+defineProps<{
     scrolled: boolean;
     showNotifications: boolean;
     showProfileDropdown: boolean;
